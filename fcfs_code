@@ -1,0 +1,1858 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+
+public class FCFS {
+	private JFrame FCFS;
+	private JTextField P1;
+	private JTextField AT1;
+	private JTextField BT1;
+	private JLabel numOfProcess;
+	private JLabel arrivalTime;
+	private JLabel burstTime;
+	private JButton Compute;
+	private JTextField P2;
+	private JTextField AT2;
+	private JTextField BT2;
+	private JTextField P3;
+	private JTextField AT3;
+	private JTextField BT3;
+	private JTextField P4;
+	private JTextField AT4;
+	private JTextField BT4;
+	private JTextField P5;
+	private JTextField AT5;
+	private JTextField BT5;
+	private JTextField CT1;
+	private JTextField CT2;
+	private JTextField CT3;
+	private JTextField CT4;
+	private JTextField CT5;
+	private JLabel completionTime;
+	private JTextField TAT1;
+	private JLabel turnAroundTime;
+	private JTextField TAT2;
+	private JTextField TAT3;
+	private JTextField TAT4;
+	private JTextField TAT5;
+	private JLabel waitingTime;
+	private JTextField WT1;
+	private JTextField WT2;
+	private JTextField WT3;
+	private JTextField WT4;
+	private JTextField WT5;
+	private JLabel aveTAT;
+	private JLabel aveWT;
+	private JTextField aveTurnAroundTime;
+	private JTextField aveWaitingTime;
+	private JLabel totalNumOfProcess;
+	private JTextField totalNOP;
+	private JCheckBox chckbx1;
+	private JCheckBox chckbx2;
+	private JCheckBox chckbx3;
+	private JCheckBox chckbx4;
+	private JCheckBox chckbx5;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FCFS window = new FCFS();
+					window.FCFS.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public FCFS() {
+		
+		this.FCFS = new JFrame();
+		this.FCFS.getContentPane().setBackground(Color.DARK_GRAY);
+		this.FCFS.setTitle("FCFS");
+		this.FCFS.setBounds(100, 100, 910, 469);
+		this.FCFS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.FCFS.getContentPane().setLayout(null);
+		
+		JLabel fcfs = new JLabel("First Come First Serve");
+		fcfs.setForeground(Color.ORANGE);
+		fcfs.setFont(new Font("Tahoma", Font.BOLD, 30));
+		fcfs.setBounds(307, 30, 366, 66);
+		FCFS.getContentPane().add(fcfs);
+		
+		this.P1 = new JTextField();
+		this.P1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P1.setText("0");
+		this.P1.setEnabled(false);
+		this.P1.setBounds(77, 160, 86, 20);
+		FCFS.getContentPane().add(P1);
+		this.P1.setColumns(10);
+		
+		this.AT1 = new JTextField();
+		this.AT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT1.setText("0");
+		this.AT1.setEnabled(false);
+		this.AT1.setBounds(173, 160, 86, 20);
+		FCFS.getContentPane().add(AT1);
+		this.AT1.setColumns(10);
+		
+		this.BT1 = new JTextField();
+		this.BT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT1.setText("0");
+		this.BT1.setEnabled(false);
+		this.BT1.setBounds(269, 160, 86, 20);
+		FCFS.getContentPane().add(BT1);
+		this.BT1.setColumns(10);
+		
+		numOfProcess = new JLabel("Process No.");
+		numOfProcess.setForeground(Color.WHITE);
+		numOfProcess.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		numOfProcess.setBounds(77, 117, 95, 32);
+		FCFS.getContentPane().add(numOfProcess);
+		
+		arrivalTime = new JLabel("Arrival Time");
+		arrivalTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		arrivalTime.setForeground(Color.WHITE);
+		arrivalTime.setBounds(173, 117, 92, 32);
+		FCFS.getContentPane().add(arrivalTime);
+		
+		burstTime = new JLabel("Burst Time");
+		burstTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		burstTime.setForeground(Color.WHITE);
+		burstTime.setBounds(269, 117, 86, 32);
+		FCFS.getContentPane().add(burstTime);
+		
+		Compute = new JButton("Compute");
+		Compute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {     
+				
+				int arrivalTime1, arrivalTime2, arrivalTime3, arrivalTime4, arrivalTime5, burstTime1, burstTime2, burstTime3, burstTime4, burstTime5, 
+					completionTime1, completionTime2, completionTime3, completionTime4, completionTime5, turnAroundTime1, turnAroundTime2, turnAroundTime3, 
+					turnAroundTime4, turnAroundTime5, waitingTime1, waitingTime2, waitingTime3, waitingTime4, waitingTime5; 
+					
+				double nop, totalTAT, totalWT; 
+				
+				// Completion Time 
+				arrivalTime1 = Integer.parseInt(AT1.getText());		burstTime1 = Integer.parseInt(BT1.getText());
+				arrivalTime2 = Integer.parseInt(AT2.getText());		burstTime2 = Integer.parseInt(BT2.getText());
+				arrivalTime3 = Integer.parseInt(AT3.getText());		burstTime3 = Integer.parseInt(BT3.getText());
+				arrivalTime4 = Integer.parseInt(AT4.getText());		burstTime4 = Integer.parseInt(BT4.getText());
+				arrivalTime5 = Integer.parseInt(AT5.getText());		burstTime5 = Integer.parseInt(BT5.getText());
+				
+				if (chckbx1.isSelected()) {
+					completionTime1 = arrivalTime1 + burstTime1;
+				}
+				else {
+					completionTime1 = 0;
+				}
+				
+				if (chckbx2.isSelected()) {
+					completionTime2 = completionTime1 + burstTime2;
+				}
+				else {
+					completionTime2 = 0;
+				}
+				
+				if (chckbx3.isSelected()) {
+					completionTime3 = completionTime2 + burstTime3;
+				}
+				else {
+					completionTime3 = 0;
+				}
+				
+				if (chckbx4.isSelected()) {
+					completionTime4 = completionTime3 + burstTime4;
+				}
+				else {
+					completionTime4 = 0;
+				}
+				
+				if (chckbx5.isSelected()) {
+					completionTime5 = completionTime4 + burstTime5;
+				}
+				else {
+					completionTime5 = 0;
+				}
+				
+				CT1.setText(Integer.toString(completionTime1));
+			    CT2.setText(Integer.toString(completionTime2));
+			    CT3.setText(Integer.toString(completionTime3));
+			    CT4.setText(Integer.toString(completionTime4));
+			    CT5.setText(Integer.toString(completionTime5));
+			    
+			    // Turn Around Time
+			    
+			    if (chckbx1.isSelected()) {
+			    	turnAroundTime1 = completionTime1 - arrivalTime1;
+			    }
+			    else {
+			    	turnAroundTime1 = 0;
+			    }
+			    
+			    if (chckbx2.isSelected()) {
+			    	turnAroundTime2 = completionTime2 - arrivalTime2;
+			    }
+			    else {
+			    	turnAroundTime2 = 0;
+			    }
+			    
+			    if (chckbx3.isSelected()) {
+			    	turnAroundTime3 = completionTime3 - arrivalTime3;
+			    }
+			    else {
+			    	turnAroundTime3 = 0;
+			    }
+			    
+			    if (chckbx4.isSelected()) {
+			    	turnAroundTime4 = completionTime4 - arrivalTime4;
+			    }
+			    else {
+			    	turnAroundTime4 = 0;
+			    }
+			    
+			    if (chckbx4.isSelected()) {
+			    	turnAroundTime5 = completionTime5 - arrivalTime5;
+			    }
+			    else {
+			    	turnAroundTime5 = 0;
+			    }
+			    
+			    TAT1.setText(Integer.toString(turnAroundTime1));
+			    TAT2.setText(Integer.toString(turnAroundTime2));
+			    TAT3.setText(Integer.toString(turnAroundTime3));
+			    TAT4.setText(Integer.toString(turnAroundTime4));
+			    TAT5.setText(Integer.toString(turnAroundTime5));
+			    
+			    // Waiting Time
+			    
+			    if (chckbx1.isSelected()) {
+			    	waitingTime1 = turnAroundTime1 - burstTime1;
+			    }
+			    else {
+			    	waitingTime1 = 0;
+			    }
+			    
+			    if (chckbx2.isSelected()) {
+			    	waitingTime2 = turnAroundTime2 - burstTime2;
+			    }
+			    else {
+			    	waitingTime2 = 0;
+			    }
+			    
+			    if (chckbx3.isSelected()) {
+			    	waitingTime3 = turnAroundTime3 - burstTime3;
+			    }
+			    else {
+			    	waitingTime3 = 0;
+			    }
+			    
+			    if (chckbx4.isSelected()) {
+			    	waitingTime4 = turnAroundTime4 - burstTime4;
+			    }
+			    else {
+			    	waitingTime4 = 0;
+			    }
+			    
+			    if (chckbx5.isSelected()) {
+			    	waitingTime5 = turnAroundTime5 - burstTime5;
+			    }
+			    else {
+			    	waitingTime5 = 0;
+			    }
+			    
+			    WT1.setText(Integer.toString(waitingTime1));
+			    WT2.setText(Integer.toString(waitingTime2));
+			    WT3.setText(Integer.toString(waitingTime3));
+			    WT4.setText(Integer.toString(waitingTime4));
+			    WT5.setText(Integer.toString(waitingTime5));
+			    
+			    nop = Double.parseDouble(totalNOP.getText());
+	
+			    // Average Turn Around Time
+			    totalTAT = (turnAroundTime1 + turnAroundTime2 + turnAroundTime3 + turnAroundTime4 + turnAroundTime5) / nop; 
+			    aveTurnAroundTime.setText(Double.toString(totalTAT));
+			    
+			    // Average Waiting Time
+			    totalWT = (waitingTime1 + waitingTime2 + waitingTime3 + waitingTime4 + waitingTime5) / nop;
+			    aveWaitingTime.setText(Double.toString(totalWT));
+			    
+			    }
+		});
+		Compute.setBackground(Color.YELLOW);
+		Compute.setFont(new Font("Lucida Sans", Font.BOLD, 11));
+		Compute.setBounds(190, 348, 143, 39);
+		FCFS.getContentPane().add(Compute);
+		
+		this.P2 = new JTextField();
+		this.P2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P2.setText("0");
+		this.P2.setEnabled(false);
+		this.P2.setBounds(77, 191, 86, 20);
+		FCFS.getContentPane().add(P2);
+		this.P2.setColumns(10);
+		
+		this.AT2 = new JTextField();
+		this.AT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT2.setText("0");
+		this.AT2.setEnabled(false);
+		this.AT2.setBounds(173, 191, 86, 20);
+		FCFS.getContentPane().add(AT2);
+		this.AT2.setColumns(10);
+		
+		this.BT2 = new JTextField();
+		this.BT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT2.setText("0");
+		this.BT2.setEnabled(false);
+		this.BT2.setBounds(269, 191, 86, 20);
+		FCFS.getContentPane().add(BT2);
+		this.BT2.setColumns(10);
+		
+		this.P3 = new JTextField();
+		this.P3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P3.setText("0");
+		this.P3.setEnabled(false);
+		this.P3.setBounds(77, 222, 86, 20);
+		FCFS.getContentPane().add(P3);
+		this.P3.setColumns(10);
+		
+		this.AT3 = new JTextField();
+		this.AT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT3.setText("0");
+		this.AT3.setEnabled(false);
+		this.AT3.setBounds(173, 222, 86, 20);
+		FCFS.getContentPane().add(AT3);
+		this.AT3.setColumns(10);
+		
+		this.BT3 = new JTextField();
+		this.BT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT3.setText("0");
+		this.BT3.setEnabled(false);
+		this.BT3.setBounds(269, 222, 86, 20);
+		FCFS.getContentPane().add(BT3);
+		this.BT3.setColumns(10);
+		
+		this.P4 = new JTextField();
+		this.P4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P4.setText("0");
+		this.P4.setEnabled(false);
+		this.P4.setBounds(77, 253, 86, 20);
+		FCFS.getContentPane().add(P4);
+		this.P4.setColumns(10);
+		
+		this.AT4 = new JTextField();
+		this.AT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT4.setText("0");
+		this.AT4.setEnabled(false);
+		this.AT4.setBounds(173, 253, 86, 20);
+		FCFS.getContentPane().add(AT4);
+		this.AT4.setColumns(10);
+		
+		this.BT4 = new JTextField();
+		this.BT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT4.setText("0");
+		this.BT4.setEnabled(false);
+		this.BT4.setBounds(269, 253, 86, 20);
+		FCFS.getContentPane().add(BT4);
+		this.BT4.setColumns(10);
+		
+		this.P5 = new JTextField();
+		this.P5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P5.setText("0");
+		this.P5.setEnabled(false);
+		this.P5.setBounds(77, 284, 86, 20);
+		FCFS.getContentPane().add(P5);
+		this.P5.setColumns(10);
+		
+		this.AT5 = new JTextField();
+		this.AT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT5.setText("0");
+		this.AT5.setEnabled(false);
+		this.AT5.setBounds(173, 284, 86, 20);
+		FCFS.getContentPane().add(AT5);
+		this.AT5.setColumns(10);
+		
+		this.BT5 = new JTextField();
+		this.BT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT5.setText("0");
+		this.BT5.setEnabled(false);
+		this.BT5.setBounds(269, 284, 86, 20);
+		FCFS.getContentPane().add(BT5);
+		this.BT5.setColumns(10);
+		
+		this.CT1 = new JTextField();
+		CT1.setEditable(false);
+		this.CT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT1.setText("0");
+		this.CT1.setEnabled(false);
+		this.CT1.setBounds(375, 160, 86, 20);
+		FCFS.getContentPane().add(CT1);
+		this.CT1.setColumns(10);
+		
+		this.CT2 = new JTextField();
+		CT2.setEditable(false);
+		this.CT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT2.setText("0");
+		this.CT2.setEnabled(false);
+		this.CT2.setBounds(375, 191, 86, 20);
+		FCFS.getContentPane().add(CT2);
+		this.CT2.setColumns(10);
+		
+		this.CT3 = new JTextField();
+		CT3.setEditable(false);
+		this.CT3.setText("0");
+		this.CT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT3.setEnabled(false);
+		this.CT3.setBounds(375, 222, 86, 20);
+		FCFS.getContentPane().add(CT3);
+		this.CT3.setColumns(10);
+		
+		this.CT4 = new JTextField();
+		CT4.setEditable(false);
+		this.CT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT4.setText("0");
+		this.CT4.setEnabled(false);
+		this.CT4.setBounds(375, 253, 86, 20);
+		FCFS.getContentPane().add(CT4);
+		this.CT4.setColumns(10);
+		
+		this.CT5 = new JTextField();
+		CT5.setEditable(false);
+		this.CT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT5.setText("0");
+		this.CT5.setEnabled(false);
+		this.CT5.setBounds(375, 284, 86, 20);
+		FCFS.getContentPane().add(CT5);
+		this.CT5.setColumns(10);
+		
+		completionTime = new JLabel("Completion Time");
+		completionTime.setForeground(Color.WHITE);
+		completionTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		completionTime.setBounds(365, 115, 127, 36);
+		FCFS.getContentPane().add(completionTime);
+		
+		this.TAT1 = new JTextField();
+		TAT1.setEditable(false);
+		this.TAT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT1.setText("0");
+		this.TAT1.setEnabled(false);
+		this.TAT1.setBounds(522, 160, 86, 20);
+		FCFS.getContentPane().add(TAT1);
+		this.TAT1.setColumns(10);
+		
+		turnAroundTime = new JLabel("Turn Around Time");
+		turnAroundTime.setForeground(Color.WHITE);
+		turnAroundTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		turnAroundTime.setBounds(502, 120, 127, 26);
+		FCFS.getContentPane().add(turnAroundTime);
+		
+		this.TAT2 = new JTextField();
+		TAT2.setEditable(false);
+		this.TAT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT2.setText("0");
+		this.TAT2.setEnabled(false);
+		this.TAT2.setBounds(522, 191, 86, 20);
+		FCFS.getContentPane().add(TAT2);
+		this.TAT2.setColumns(10);
+		
+		this.TAT3 = new JTextField();
+		TAT3.setEditable(false);
+		this.TAT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT3.setText("0");
+		this.TAT3.setEnabled(false);
+		this.TAT3.setBounds(522, 222, 86, 20);
+		FCFS.getContentPane().add(TAT3);
+		this.TAT3.setColumns(10);
+		
+		this.TAT4 = new JTextField();
+		TAT4.setEditable(false);
+		this.TAT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT4.setText("0");
+		this.TAT4.setEnabled(false);
+		this.TAT4.setBounds(522, 253, 86, 20);
+		FCFS.getContentPane().add(TAT4);
+		this.TAT4.setColumns(10);
+		
+		this.TAT5 = new JTextField();
+		TAT5.setEditable(false);
+		this.TAT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT5.setText("0");
+		this.TAT5.setEnabled(false);
+		this.TAT5.setBounds(522, 284, 86, 20);
+		FCFS.getContentPane().add(TAT5);
+		this.TAT5.setColumns(10);
+		
+		waitingTime = new JLabel("Waiting Time");
+		waitingTime.setForeground(Color.WHITE);
+		waitingTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		waitingTime.setBounds(648, 123, 95, 20);
+		FCFS.getContentPane().add(waitingTime);
+		
+		this.WT1 = new JTextField();
+		WT1.setEditable(false);
+		this.WT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT1.setText("0");
+		this.WT1.setEnabled(false);
+		this.WT1.setBounds(657, 160, 86, 20);
+		FCFS.getContentPane().add(WT1);
+		this.WT1.setColumns(10);
+		
+		this.WT2 = new JTextField();
+		WT2.setEditable(false);
+		this.WT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT2.setText("0");
+		this.WT2.setEnabled(false);
+		this.WT2.setBounds(657, 191, 86, 20);
+		FCFS.getContentPane().add(WT2);
+		this.WT2.setColumns(10);
+		
+		this.WT3 = new JTextField();
+		WT3.setEditable(false);
+		this.WT3.setText("0");
+		this.WT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT3.setEnabled(false);
+		this.WT3.setBounds(657, 222, 86, 20);
+		FCFS.getContentPane().add(WT3);
+		this.WT3.setColumns(10);
+		
+		this.WT4 = new JTextField();
+		WT4.setEditable(false);
+		this.WT4.setText("0");
+		this.WT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT4.setEnabled(false);
+		this.WT4.setBounds(657, 253, 86, 20);
+		FCFS.getContentPane().add(WT4);
+		this.WT4.setColumns(10);
+		
+		this.WT5 = new JTextField();
+		WT5.setEditable(false);
+		this.WT5.setText("0");
+		this.WT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT5.setEnabled(false);
+		this.WT5.setBounds(657, 284, 86, 20);
+		FCFS.getContentPane().add(WT5);
+		this.WT5.setColumns(10);
+		
+		aveTAT = new JLabel("Average Turn Around Time:");
+		aveTAT.setForeground(Color.WHITE);
+		aveTAT.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		aveTAT.setBounds(406, 329, 191, 39);
+		FCFS.getContentPane().add(aveTAT);
+		
+		aveWT = new JLabel("Average Waiting Time:");
+		aveWT.setForeground(Color.WHITE);
+		aveWT.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		aveWT.setBounds(404, 364, 164, 32);
+		FCFS.getContentPane().add(aveWT);
+		
+		aveTurnAroundTime = new JTextField();
+		aveTurnAroundTime.setHorizontalAlignment(SwingConstants.CENTER);
+		aveTurnAroundTime.setBounds(630, 341, 133, 20);
+		FCFS.getContentPane().add(aveTurnAroundTime);
+		aveTurnAroundTime.setColumns(10);
+		
+		aveWaitingTime = new JTextField();
+		aveWaitingTime.setHorizontalAlignment(SwingConstants.CENTER);
+		aveWaitingTime.setBounds(630, 373, 133, 20);
+		FCFS.getContentPane().add(aveWaitingTime);
+		aveWaitingTime.setColumns(10);
+		
+		totalNumOfProcess = new JLabel("Total Number of Process:");
+		totalNumOfProcess.setForeground(Color.WHITE);
+		totalNumOfProcess.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		totalNumOfProcess.setBounds(28, 33, 191, 39);
+		FCFS.getContentPane().add(totalNumOfProcess);
+		
+		totalNOP = new JTextField();
+		totalNOP.setFont(new Font("Tahoma", Font.BOLD, 15));
+		totalNOP.setEditable(false);
+		totalNOP.setText("0");
+		totalNOP.setHorizontalAlignment(SwingConstants.CENTER);
+		totalNOP.setBounds(77, 76, 86, 20);
+		FCFS.getContentPane().add(totalNOP);
+		totalNOP.setColumns(10);
+		
+		chckbx1 = new JCheckBox("");
+		chckbx1.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx1.isSelected()) {
+	              FCFS.this.AT1.setEnabled(true);
+	              FCFS.this.AT1.setText("");
+	              FCFS.this.AT1.requestFocus();
+	              FCFS.this.BT1.setEnabled(true);
+	              FCFS.this.BT1.setText("");
+	              FCFS.this.BT1.requestFocus();
+	              FCFS.this.CT1.setEnabled(true);
+	              FCFS.this.CT1.setText("");
+	              FCFS.this.CT1.requestFocus();
+	              FCFS.this.TAT1.setEnabled(true);
+	              FCFS.this.TAT1.setText("");
+	              FCFS.this.TAT1.requestFocus();
+	              FCFS.this.WT1.setEnabled(true);
+	              FCFS.this.WT1.setText("");
+	              FCFS.this.WT1.requestFocus();
+	              FCFS.this.P1.setEnabled(true);
+		          FCFS.this.P1.setText("");
+		          FCFS.this.P1.requestFocus();
+		          totalNOP.setText("1");
+	            } else {
+	            	FCFS.this.P1.setEnabled(false);
+	            	FCFS.this.P1.setText("0");
+	            	FCFS.this.AT1.setEnabled(false);
+	            	FCFS.this.AT1.setText("0");
+	            	FCFS.this.BT1.setEnabled(false);
+	            	FCFS.this.BT1.setText("0");
+	            	FCFS.this.CT1.setEnabled(false);
+	            	FCFS.this.CT1.setText("0");
+	            	FCFS.this.TAT1.setEnabled(false);
+	            	FCFS.this.TAT1.setText("0");
+	            	FCFS.this.WT1.setEnabled(false);
+	            	FCFS.this.WT1.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx1.setBounds(47, 159, 24, 23);
+		FCFS.getContentPane().add(chckbx1);
+		
+		chckbx2 = new JCheckBox("");
+		chckbx2.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx2.isSelected()) {
+	              FCFS.this.AT2.setEnabled(true);
+	              FCFS.this.AT2.setText("");
+	              FCFS.this.AT2.requestFocus();
+	              FCFS.this.BT2.setEnabled(true);
+	              FCFS.this.BT2.setText("");
+	              FCFS.this.BT2.requestFocus();
+	              FCFS.this.CT2.setEnabled(true);
+	              FCFS.this.CT2.setText("");
+	              FCFS.this.CT2.requestFocus();
+	              FCFS.this.TAT2.setEnabled(true);
+	              FCFS.this.TAT2.setText("");
+	              FCFS.this.TAT2.requestFocus();
+	              FCFS.this.WT2.setEnabled(true);
+	              FCFS.this.WT2.setText("");
+	              FCFS.this.WT2.requestFocus();
+	              FCFS.this.P2.setEnabled(true);
+		          FCFS.this.P2.setText("");
+		          FCFS.this.P2.requestFocus();
+		          totalNOP.setText("2");
+	            } else {
+	            	FCFS.this.P2.setEnabled(false);
+	            	FCFS.this.P2.setText("0");
+	            	FCFS.this.AT2.setEnabled(false);
+	            	FCFS.this.AT2.setText("0");
+	            	FCFS.this.BT2.setEnabled(false);
+	            	FCFS.this.BT2.setText("0");
+	            	FCFS.this.CT2.setEnabled(false);
+	            	FCFS.this.CT2.setText("0");
+	            	FCFS.this.TAT2.setEnabled(false);
+	            	FCFS.this.TAT2.setText("0");
+	            	FCFS.this.WT2.setEnabled(false);
+	            	FCFS.this.WT2.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx2.setBounds(47, 190, 24, 23);
+		FCFS.getContentPane().add(chckbx2);
+		
+		chckbx3 = new JCheckBox("");
+		chckbx3.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx3.isSelected()) {
+	              FCFS.this.AT3.setEnabled(true);
+	              FCFS.this.AT3.setText("");
+	              FCFS.this.AT3.requestFocus();
+	              FCFS.this.BT3.setEnabled(true);
+	              FCFS.this.BT3.setText("");
+	              FCFS.this.BT3.requestFocus();
+	              FCFS.this.CT3.setEnabled(true);
+	              FCFS.this.CT3.setText("");
+	              FCFS.this.CT3.requestFocus();
+	              FCFS.this.TAT3.setEnabled(true);
+	              FCFS.this.TAT3.setText("");
+	              FCFS.this.TAT3.requestFocus();
+	              FCFS.this.WT3.setEnabled(true);
+	              FCFS.this.WT3.setText("");
+	              FCFS.this.WT3.requestFocus();
+	              FCFS.this.P3.setEnabled(true);
+		          FCFS.this.P3.setText("");
+		          FCFS.this.P3.requestFocus();
+		          totalNOP.setText("3");
+	            } else {
+	            	FCFS.this.P3.setEnabled(false);
+	            	FCFS.this.P3.setText("0");
+	            	FCFS.this.AT3.setEnabled(false);
+	            	FCFS.this.AT3.setText("0");
+	            	FCFS.this.BT3.setEnabled(false);
+	            	FCFS.this.BT3.setText("0");
+	            	FCFS.this.CT3.setEnabled(false);
+	            	FCFS.this.CT3.setText("0");
+	            	FCFS.this.TAT3.setEnabled(false);
+	            	FCFS.this.TAT3.setText("0");
+	            	FCFS.this.WT3.setEnabled(false);
+	            	FCFS.this.WT3.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx3.setBounds(47, 221, 24, 23);
+		FCFS.getContentPane().add(chckbx3);
+		
+		chckbx4 = new JCheckBox("");
+		chckbx4.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx4.isSelected()) {
+	              FCFS.this.AT4.setEnabled(true);
+	              FCFS.this.AT4.setText("");
+	              FCFS.this.AT4.requestFocus();
+	              FCFS.this.BT4.setEnabled(true);
+	              FCFS.this.BT4.setText("");
+	              FCFS.this.BT4.requestFocus();
+	              FCFS.this.CT4.setEnabled(true);
+	              FCFS.this.CT4.setText("");
+	              FCFS.this.CT4.requestFocus();
+	              FCFS.this.TAT4.setEnabled(true);
+	              FCFS.this.TAT4.setText("");
+	              FCFS.this.TAT4.requestFocus();
+	              FCFS.this.WT4.setEnabled(true);
+	              FCFS.this.WT4.setText("");
+	              FCFS.this.WT4.requestFocus();
+	              FCFS.this.P4.setEnabled(true);
+		          FCFS.this.P4.setText("");
+		          FCFS.this.P4.requestFocus();
+		          totalNOP.setText("4");
+	            } else {
+	            	FCFS.this.P4.setEnabled(false);
+	            	FCFS.this.P4.setText("0");
+	            	FCFS.this.AT4.setEnabled(false);
+	            	FCFS.this.AT4.setText("0");
+	            	FCFS.this.BT4.setEnabled(false);
+	            	FCFS.this.BT4.setText("0");
+	            	FCFS.this.CT4.setEnabled(false);
+	            	FCFS.this.CT4.setText("0");
+	            	FCFS.this.TAT4.setEnabled(false);
+	            	FCFS.this.TAT4.setText("0");
+	            	FCFS.this.WT4.setEnabled(false);
+	            	FCFS.this.WT4.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx4.setBounds(47, 252, 24, 23);
+		FCFS.getContentPane().add(chckbx4);
+		
+		chckbx5 = new JCheckBox("");
+		chckbx5.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx5.isSelected()) {
+	              FCFS.this.AT5.setEnabled(true);
+	              FCFS.this.AT5.setText("");
+	              FCFS.this.AT5.requestFocus();
+	              FCFS.this.BT5.setEnabled(true);
+	              FCFS.this.BT5.setText("");
+	              FCFS.this.BT5.requestFocus();
+	              FCFS.this.CT5.setEnabled(true);
+	              FCFS.this.CT5.setText("");
+	              FCFS.this.CT5.requestFocus();
+	              FCFS.this.TAT5.setEnabled(true);
+	              FCFS.this.TAT5.setText("");
+	              FCFS.this.TAT5.requestFocus();
+	              FCFS.this.WT5.setEnabled(true);
+	              FCFS.this.WT5.setText("");
+	              FCFS.this.WT5.requestFocus();
+	              FCFS.this.P5.setEnabled(true);
+		          FCFS.this.P5.setText("");
+		          FCFS.this.P5.requestFocus();
+		          totalNOP.setText("5");
+	            } else {
+	            	FCFS.this.P5.setEnabled(false);
+	            	FCFS.this.P5.setText("0");
+	            	FCFS.this.AT5.setEnabled(false);
+	            	FCFS.this.AT5.setText("0");
+	            	FCFS.this.BT5.setEnabled(false);
+	            	FCFS.this.BT5.setText("0");
+	            	FCFS.this.CT5.setEnabled(false);
+	            	FCFS.this.CT5.setText("0");
+	            	FCFS.this.TAT5.setEnabled(false);
+	            	FCFS.this.TAT5.setText("0");
+	            	FCFS.this.WT5.setEnabled(false);
+	            	FCFS.this.WT5.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx5.setBounds(47, 283, 24, 23);
+		FCFS.getContentPane().add(chckbx5);
+		
+	}
+}
+ -----------------------------------------------------------------------------------------
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+
+public class FCFS {
+	private JFrame FCFS;
+	private JTextField P1;
+	private JTextField AT1;
+	private JTextField BT1;
+	private JLabel numOfProcess;
+	private JLabel arrivalTime;
+	private JLabel burstTime;
+	private JButton Compute;
+	private JTextField P2;
+	private JTextField AT2;
+	private JTextField BT2;
+	private JTextField P3;
+	private JTextField AT3;
+	private JTextField BT3;
+	private JTextField P4;
+	private JTextField AT4;
+	private JTextField BT4;
+	private JTextField P5;
+	private JTextField AT5;
+	private JTextField BT5;
+	private JTextField CT1;
+	private JTextField CT2;
+	private JTextField CT3;
+	private JTextField CT4;
+	private JTextField CT5;
+	private JLabel completionTime;
+	private JTextField TAT1;
+	private JLabel turnAroundTime;
+	private JTextField TAT2;
+	private JTextField TAT3;
+	private JTextField TAT4;
+	private JTextField TAT5;
+	private JLabel waitingTime;
+	private JTextField WT1;
+	private JTextField WT2;
+	private JTextField WT3;
+	private JTextField WT4;
+	private JTextField WT5;
+	private JLabel aveTAT;
+	private JLabel aveWT;
+	private JTextField aveTurnAroundTime;
+	private JTextField aveWaitingTime;
+	private JLabel totalNumOfProcess;
+	private JTextField totalNOP;
+	private JCheckBox chckbx1;
+	private JCheckBox chckbx2;
+	private JCheckBox chckbx3;
+	private JCheckBox chckbx4;
+	private JCheckBox chckbx5;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FCFS window = new FCFS();
+					window.FCFS.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public FCFS() {
+		
+		this.FCFS = new JFrame();
+		this.FCFS.getContentPane().setBackground(Color.DARK_GRAY);
+		this.FCFS.setTitle("FCFS");
+		this.FCFS.setBounds(100, 100, 910, 469);
+		this.FCFS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.FCFS.getContentPane().setLayout(null);
+		
+		JLabel fcfs = new JLabel("First Come First Serve");
+		fcfs.setForeground(Color.ORANGE);
+		fcfs.setFont(new Font("Tahoma", Font.BOLD, 30));
+		fcfs.setBounds(307, 30, 366, 66);
+		FCFS.getContentPane().add(fcfs);
+		
+		this.P1 = new JTextField();
+		this.P1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P1.setText("0");
+		this.P1.setEnabled(false);
+		this.P1.setBounds(77, 160, 86, 20);
+		FCFS.getContentPane().add(P1);
+		this.P1.setColumns(10);
+		
+		this.AT1 = new JTextField();
+		this.AT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT1.setText("0");
+		this.AT1.setEnabled(false);
+		this.AT1.setBounds(173, 160, 86, 20);
+		FCFS.getContentPane().add(AT1);
+		this.AT1.setColumns(10);
+		
+		this.BT1 = new JTextField();
+		this.BT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT1.setText("0");
+		this.BT1.setEnabled(false);
+		this.BT1.setBounds(269, 160, 86, 20);
+		FCFS.getContentPane().add(BT1);
+		this.BT1.setColumns(10);
+		
+		numOfProcess = new JLabel("Process No.");
+		numOfProcess.setForeground(Color.WHITE);
+		numOfProcess.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		numOfProcess.setBounds(77, 117, 95, 32);
+		FCFS.getContentPane().add(numOfProcess);
+		
+		arrivalTime = new JLabel("Arrival Time");
+		arrivalTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		arrivalTime.setForeground(Color.WHITE);
+		arrivalTime.setBounds(173, 117, 92, 32);
+		FCFS.getContentPane().add(arrivalTime);
+		
+		burstTime = new JLabel("Burst Time");
+		burstTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		burstTime.setForeground(Color.WHITE);
+		burstTime.setBounds(269, 117, 86, 32);
+		FCFS.getContentPane().add(burstTime);
+		
+		Compute = new JButton("Compute");
+		Compute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {     
+				
+				int arrivalTime1, arrivalTime2, arrivalTime3, arrivalTime4, arrivalTime5, burstTime1, burstTime2, burstTime3, burstTime4, burstTime5, 
+					turnAroundTime1, turnAroundTime2, turnAroundTime3, turnAroundTime4, turnAroundTime5, waitingTime1, waitingTime2, waitingTime3, 
+					waitingTime4, waitingTime5; 
+					
+				int completionTime1 = 0, completionTime2 = 0, completionTime3 = 0, completionTime4 = 0, completionTime5 = 0;
+				
+				double nop, totalTAT, totalWT; 
+				
+				// Completion Time 
+				arrivalTime1 = Integer.parseInt(AT1.getText());		burstTime1 = Integer.parseInt(BT1.getText());	
+				arrivalTime2 = Integer.parseInt(AT2.getText());		burstTime2 = Integer.parseInt(BT2.getText());
+				arrivalTime3 = Integer.parseInt(AT3.getText());		burstTime3 = Integer.parseInt(BT3.getText());
+				arrivalTime4 = Integer.parseInt(AT4.getText());		burstTime4 = Integer.parseInt(BT4.getText());
+				arrivalTime5 = Integer.parseInt(AT5.getText());		burstTime5 = Integer.parseInt(BT5.getText());
+				
+				if (arrivalTime1 < arrivalTime2) {
+					if (arrivalTime1 < arrivalTime3) {
+						if (arrivalTime1 < arrivalTime4) {
+							if (arrivalTime1 < arrivalTime5) {
+								completionTime1 = arrivalTime1 + burstTime1;
+							}
+							else if (arrivalTime1 > arrivalTime5){
+								completionTime1 = completionTime5 + burstTime1;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime1 < arrivalTime3) {
+					if (arrivalTime1 < arrivalTime4) {
+						if (arrivalTime1 < arrivalTime5) {
+							if (arrivalTime1 > arrivalTime2) {
+								completionTime1 = completionTime2 + burstTime1;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime1 < arrivalTime4) {
+					if (arrivalTime1 < arrivalTime5) {
+						if (arrivalTime1 < arrivalTime2) {
+							if (arrivalTime1 > arrivalTime3) {
+								completionTime1 = completionTime3 + burstTime1;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime1 < arrivalTime5) {
+					if (arrivalTime1 < arrivalTime2) {
+						if (arrivalTime1 < arrivalTime3) {
+							if (arrivalTime1 > arrivalTime4) {
+								completionTime1 = completionTime4 + burstTime1;
+							}
+							else {
+						
+							}
+						}
+					}
+				}
+				else {
+					
+				}
+					
+				if (arrivalTime2 < arrivalTime1) {
+						if (arrivalTime2 < arrivalTime3) {
+							if (arrivalTime2 < arrivalTime4) {
+								if (arrivalTime2 < arrivalTime5) {
+									completionTime2 = arrivalTime2 + burstTime2;
+								}
+								else if (arrivalTime2 > arrivalTime5){
+									completionTime2 = completionTime5 + burstTime2;
+								}
+								else {
+									
+								}
+							}
+						}
+				}
+				else if (arrivalTime2 < arrivalTime3) {
+						if (arrivalTime2 < arrivalTime4) {
+							if (arrivalTime2 < arrivalTime5) {
+								if (arrivalTime2 > arrivalTime1) {
+									completionTime2 = completionTime1 + burstTime2;
+								}
+								else {
+									
+								}
+							}
+						}
+					}
+				else if (arrivalTime2 < arrivalTime4) {
+						if (arrivalTime2 < arrivalTime5) {
+							if (arrivalTime2 < arrivalTime1) {
+								if (arrivalTime2 > arrivalTime3) {
+									completionTime2 = completionTime3 + burstTime2;
+								}
+								else {
+									
+								}
+							}
+						}
+					}
+				else if (arrivalTime2 < arrivalTime5) {
+						if (arrivalTime2 < arrivalTime1) {
+							if (arrivalTime2 < arrivalTime3) {
+								if (arrivalTime2 > arrivalTime4) {
+									completionTime2 = completionTime4 + burstTime2;
+								}
+								else {
+									
+								}
+							}
+						}
+					}
+				else {
+					
+				}
+				
+				if (arrivalTime3 < arrivalTime1) {
+					if (arrivalTime3 < arrivalTime2) {
+						if (arrivalTime3 < arrivalTime4) {
+							if (arrivalTime3 < arrivalTime5) {
+								completionTime3 = arrivalTime3 + burstTime3;
+							}
+							else if (arrivalTime3 > arrivalTime5){
+								completionTime3 = completionTime5 + burstTime3;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime3 < arrivalTime2) {
+					if (arrivalTime3 < arrivalTime4) {
+						if (arrivalTime3 < arrivalTime5) {
+							if (arrivalTime3 > arrivalTime1) {
+								completionTime3 = completionTime1 + burstTime3;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime3 < arrivalTime4) {
+					if (arrivalTime3 < arrivalTime5) {
+						if (arrivalTime3 < arrivalTime1) {
+							if (arrivalTime3 > arrivalTime2) {
+								completionTime3 = completionTime2 + burstTime3;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime3 < arrivalTime5) {
+					if (arrivalTime3 < arrivalTime1) {
+						if (arrivalTime3 < arrivalTime2) {
+							if (arrivalTime3 > arrivalTime4) {
+								completionTime3 = completionTime4 + burstTime3;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else {
+				
+				}
+				
+				if (arrivalTime4 < arrivalTime1) {
+					if (arrivalTime4 < arrivalTime2) {
+						if (arrivalTime4 < arrivalTime3) {
+							if (arrivalTime4 < arrivalTime5) {
+								completionTime4 = arrivalTime4 + burstTime4;
+							}
+							else if (arrivalTime4 > arrivalTime5){
+								completionTime4 = completionTime5 + burstTime4;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime4 < arrivalTime2) {
+					if (arrivalTime4 < arrivalTime3) {
+						if (arrivalTime4 < arrivalTime5) {
+							if (arrivalTime4 > arrivalTime1) {
+								completionTime4 = completionTime1 + burstTime4;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime4 < arrivalTime3) {
+					if (arrivalTime4 < arrivalTime5) {
+						if (arrivalTime4 < arrivalTime1) {
+							if (arrivalTime4 > arrivalTime2) {
+								completionTime4 = completionTime2 + burstTime4;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime4 < arrivalTime5) {
+					if (arrivalTime4 < arrivalTime1) {
+						if (arrivalTime4 < arrivalTime2) {
+							if (arrivalTime4 > arrivalTime3) {
+								completionTime4 = completionTime3 + burstTime4;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else {
+					
+				}
+			
+				if (arrivalTime5 < arrivalTime1) {
+					if (arrivalTime5 < arrivalTime2) {
+						if (arrivalTime5 < arrivalTime3) {
+							if (arrivalTime5 < arrivalTime4) {
+								completionTime5 = arrivalTime5 + burstTime5;
+							}
+							else if (arrivalTime5 > arrivalTime4){
+								completionTime5 = completionTime4 + burstTime5;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime5 < arrivalTime2) {
+					if (arrivalTime5 < arrivalTime3) {
+						if (arrivalTime5 < arrivalTime4) {
+							if (arrivalTime5 > arrivalTime1) {
+								completionTime5 = completionTime1 + burstTime5;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime5 < arrivalTime3) {
+					if (arrivalTime5 < arrivalTime4) {
+						if (arrivalTime5 < arrivalTime1) {
+							if (arrivalTime5 > arrivalTime2) {
+								completionTime5 = completionTime2 + burstTime5;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else if (arrivalTime5 < arrivalTime4) {
+					if (arrivalTime5 < arrivalTime1) {
+						if (arrivalTime5 < arrivalTime2) {
+							if (arrivalTime5 > arrivalTime3) {
+								completionTime5 = completionTime3 + burstTime5;
+							}
+							else {
+								
+							}
+						}
+					}
+				}
+				else {
+				
+				}
+				
+				
+				
+				CT1.setText(Integer.toString(completionTime1));
+			    CT2.setText(Integer.toString(completionTime2));
+			    CT3.setText(Integer.toString(completionTime3));
+			    CT4.setText(Integer.toString(completionTime4));
+			    CT5.setText(Integer.toString(completionTime5));
+			    
+			    // Turn Around Time
+			    
+			    if (chckbx1.isSelected()) {
+			    	turnAroundTime1 = completionTime1 - arrivalTime1;
+			    }
+			    else {
+			    	turnAroundTime1 = 0;
+			    }
+			    
+			    if (chckbx2.isSelected()) {
+			    	turnAroundTime2 = completionTime2 - arrivalTime2;
+			    }
+			    else {
+			    	turnAroundTime2 = 0;
+			    }
+			    
+			    if (chckbx3.isSelected()) {
+			    	turnAroundTime3 = completionTime3 - arrivalTime3;
+			    }
+			    else {
+			    	turnAroundTime3 = 0;
+			    }
+			    
+			    if (chckbx4.isSelected()) {
+			    	turnAroundTime4 = completionTime4 - arrivalTime4;
+			    }
+			    else {
+			    	turnAroundTime4 = 0;
+			    }
+			    
+			    if (chckbx4.isSelected()) {
+			    	turnAroundTime5 = completionTime5 - arrivalTime5;
+			    }
+			    else {
+			    	turnAroundTime5 = 0;
+			    }
+			    
+			    TAT1.setText(Integer.toString(turnAroundTime1));
+			    TAT2.setText(Integer.toString(turnAroundTime2));
+			    TAT3.setText(Integer.toString(turnAroundTime3));
+			    TAT4.setText(Integer.toString(turnAroundTime4));
+			    TAT5.setText(Integer.toString(turnAroundTime5));
+			    
+			    // Waiting Time
+			    
+			    if (chckbx1.isSelected()) {
+			    	waitingTime1 = turnAroundTime1 - burstTime1;
+			    }
+			    else {
+			    	waitingTime1 = 0;
+			    }
+			    
+			    if (chckbx2.isSelected()) {
+			    	waitingTime2 = turnAroundTime2 - burstTime2;
+			    }
+			    else {
+			    	waitingTime2 = 0;
+			    }
+			    
+			    if (chckbx3.isSelected()) {
+			    	waitingTime3 = turnAroundTime3 - burstTime3;
+			    }
+			    else {
+			    	waitingTime3 = 0;
+			    }
+			    
+			    if (chckbx4.isSelected()) {
+			    	waitingTime4 = turnAroundTime4 - burstTime4;
+			    }
+			    else {
+			    	waitingTime4 = 0;
+			    }
+			    
+			    if (chckbx5.isSelected()) {
+			    	waitingTime5 = turnAroundTime5 - burstTime5;
+			    }
+			    else {
+			    	waitingTime5 = 0;
+			    }
+			    
+			    WT1.setText(Integer.toString(waitingTime1));
+			    WT2.setText(Integer.toString(waitingTime2));
+			    WT3.setText(Integer.toString(waitingTime3));
+			    WT4.setText(Integer.toString(waitingTime4));
+			    WT5.setText(Integer.toString(waitingTime5));
+			    
+			    nop = Double.parseDouble(totalNOP.getText());
+	
+			    // Average Turn Around Time
+			    totalTAT = (turnAroundTime1 + turnAroundTime2 + turnAroundTime3 + turnAroundTime4 + turnAroundTime5) / nop; 
+			    aveTurnAroundTime.setText(Double.toString(totalTAT));
+			    
+			    // Average Waiting Time
+			    totalWT = (waitingTime1 + waitingTime2 + waitingTime3 + waitingTime4 + waitingTime5) / nop;
+			    aveWaitingTime.setText(Double.toString(totalWT));
+			    
+				}
+				
+		});
+		Compute.setBackground(Color.YELLOW);
+		Compute.setFont(new Font("Lucida Sans", Font.BOLD, 11));
+		Compute.setBounds(190, 348, 143, 39);
+		FCFS.getContentPane().add(Compute);
+		
+		this.P2 = new JTextField();
+		this.P2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P2.setText("0");
+		this.P2.setEnabled(false);
+		this.P2.setBounds(77, 191, 86, 20);
+		FCFS.getContentPane().add(P2);
+		this.P2.setColumns(10);
+		
+		this.AT2 = new JTextField();
+		this.AT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT2.setText("0");
+		this.AT2.setEnabled(false);
+		this.AT2.setBounds(173, 191, 86, 20);
+		FCFS.getContentPane().add(AT2);
+		this.AT2.setColumns(10);
+		
+		this.BT2 = new JTextField();
+		this.BT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT2.setText("0");
+		this.BT2.setEnabled(false);
+		this.BT2.setBounds(269, 191, 86, 20);
+		FCFS.getContentPane().add(BT2);
+		this.BT2.setColumns(10);
+		
+		this.P3 = new JTextField();
+		this.P3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P3.setText("0");
+		this.P3.setEnabled(false);
+		this.P3.setBounds(77, 222, 86, 20);
+		FCFS.getContentPane().add(P3);
+		this.P3.setColumns(10);
+		
+		this.AT3 = new JTextField();
+		this.AT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT3.setText("0");
+		this.AT3.setEnabled(false);
+		this.AT3.setBounds(173, 222, 86, 20);
+		FCFS.getContentPane().add(AT3);
+		this.AT3.setColumns(10);
+		
+		this.BT3 = new JTextField();
+		this.BT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT3.setText("0");
+		this.BT3.setEnabled(false);
+		this.BT3.setBounds(269, 222, 86, 20);
+		FCFS.getContentPane().add(BT3);
+		this.BT3.setColumns(10);
+		
+		this.P4 = new JTextField();
+		this.P4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P4.setText("0");
+		this.P4.setEnabled(false);
+		this.P4.setBounds(77, 253, 86, 20);
+		FCFS.getContentPane().add(P4);
+		this.P4.setColumns(10);
+		
+		this.AT4 = new JTextField();
+		this.AT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT4.setText("0");
+		this.AT4.setEnabled(false);
+		this.AT4.setBounds(173, 253, 86, 20);
+		FCFS.getContentPane().add(AT4);
+		this.AT4.setColumns(10);
+		
+		this.BT4 = new JTextField();
+		this.BT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT4.setText("0");
+		this.BT4.setEnabled(false);
+		this.BT4.setBounds(269, 253, 86, 20);
+		FCFS.getContentPane().add(BT4);
+		this.BT4.setColumns(10);
+		
+		this.P5 = new JTextField();
+		this.P5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.P5.setText("0");
+		this.P5.setEnabled(false);
+		this.P5.setBounds(77, 284, 86, 20);
+		FCFS.getContentPane().add(P5);
+		this.P5.setColumns(10);
+		
+		this.AT5 = new JTextField();
+		this.AT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.AT5.setText("0");
+		this.AT5.setEnabled(false);
+		this.AT5.setBounds(173, 284, 86, 20);
+		FCFS.getContentPane().add(AT5);
+		this.AT5.setColumns(10);
+		
+		this.BT5 = new JTextField();
+		this.BT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.BT5.setText("0");
+		this.BT5.setEnabled(false);
+		this.BT5.setBounds(269, 284, 86, 20);
+		FCFS.getContentPane().add(BT5);
+		this.BT5.setColumns(10);
+		
+		this.CT1 = new JTextField();
+		CT1.setEditable(false);
+		this.CT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT1.setText("0");
+		this.CT1.setEnabled(false);
+		this.CT1.setBounds(375, 160, 86, 20);
+		FCFS.getContentPane().add(CT1);
+		this.CT1.setColumns(10);
+		
+		this.CT2 = new JTextField();
+		CT2.setEditable(false);
+		this.CT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT2.setText("0");
+		this.CT2.setEnabled(false);
+		this.CT2.setBounds(375, 191, 86, 20);
+		FCFS.getContentPane().add(CT2);
+		this.CT2.setColumns(10);
+		
+		this.CT3 = new JTextField();
+		CT3.setEditable(false);
+		this.CT3.setText("0");
+		this.CT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT3.setEnabled(false);
+		this.CT3.setBounds(375, 222, 86, 20);
+		FCFS.getContentPane().add(CT3);
+		this.CT3.setColumns(10);
+		
+		this.CT4 = new JTextField();
+		CT4.setEditable(false);
+		this.CT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT4.setText("0");
+		this.CT4.setEnabled(false);
+		this.CT4.setBounds(375, 253, 86, 20);
+		FCFS.getContentPane().add(CT4);
+		this.CT4.setColumns(10);
+		
+		this.CT5 = new JTextField();
+		CT5.setEditable(false);
+		this.CT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.CT5.setText("0");
+		this.CT5.setEnabled(false);
+		this.CT5.setBounds(375, 284, 86, 20);
+		FCFS.getContentPane().add(CT5);
+		this.CT5.setColumns(10);
+		
+		completionTime = new JLabel("Completion Time");
+		completionTime.setForeground(Color.WHITE);
+		completionTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		completionTime.setBounds(365, 115, 127, 36);
+		FCFS.getContentPane().add(completionTime);
+		
+		this.TAT1 = new JTextField();
+		TAT1.setEditable(false);
+		this.TAT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT1.setText("0");
+		this.TAT1.setEnabled(false);
+		this.TAT1.setBounds(522, 160, 86, 20);
+		FCFS.getContentPane().add(TAT1);
+		this.TAT1.setColumns(10);
+		
+		turnAroundTime = new JLabel("Turn Around Time");
+		turnAroundTime.setForeground(Color.WHITE);
+		turnAroundTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		turnAroundTime.setBounds(502, 120, 127, 26);
+		FCFS.getContentPane().add(turnAroundTime);
+		
+		this.TAT2 = new JTextField();
+		TAT2.setEditable(false);
+		this.TAT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT2.setText("0");
+		this.TAT2.setEnabled(false);
+		this.TAT2.setBounds(522, 191, 86, 20);
+		FCFS.getContentPane().add(TAT2);
+		this.TAT2.setColumns(10);
+		
+		this.TAT3 = new JTextField();
+		TAT3.setEditable(false);
+		this.TAT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT3.setText("0");
+		this.TAT3.setEnabled(false);
+		this.TAT3.setBounds(522, 222, 86, 20);
+		FCFS.getContentPane().add(TAT3);
+		this.TAT3.setColumns(10);
+		
+		this.TAT4 = new JTextField();
+		TAT4.setEditable(false);
+		this.TAT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT4.setText("0");
+		this.TAT4.setEnabled(false);
+		this.TAT4.setBounds(522, 253, 86, 20);
+		FCFS.getContentPane().add(TAT4);
+		this.TAT4.setColumns(10);
+		
+		this.TAT5 = new JTextField();
+		TAT5.setEditable(false);
+		this.TAT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.TAT5.setText("0");
+		this.TAT5.setEnabled(false);
+		this.TAT5.setBounds(522, 284, 86, 20);
+		FCFS.getContentPane().add(TAT5);
+		this.TAT5.setColumns(10);
+		
+		waitingTime = new JLabel("Waiting Time");
+		waitingTime.setForeground(Color.WHITE);
+		waitingTime.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		waitingTime.setBounds(648, 123, 95, 20);
+		FCFS.getContentPane().add(waitingTime);
+		
+		this.WT1 = new JTextField();
+		WT1.setEditable(false);
+		this.WT1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT1.setText("0");
+		this.WT1.setEnabled(false);
+		this.WT1.setBounds(657, 160, 86, 20);
+		FCFS.getContentPane().add(WT1);
+		this.WT1.setColumns(10);
+		
+		this.WT2 = new JTextField();
+		WT2.setEditable(false);
+		this.WT2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT2.setText("0");
+		this.WT2.setEnabled(false);
+		this.WT2.setBounds(657, 191, 86, 20);
+		FCFS.getContentPane().add(WT2);
+		this.WT2.setColumns(10);
+		
+		this.WT3 = new JTextField();
+		WT3.setEditable(false);
+		this.WT3.setText("0");
+		this.WT3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT3.setEnabled(false);
+		this.WT3.setBounds(657, 222, 86, 20);
+		FCFS.getContentPane().add(WT3);
+		this.WT3.setColumns(10);
+		
+		this.WT4 = new JTextField();
+		WT4.setEditable(false);
+		this.WT4.setText("0");
+		this.WT4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT4.setEnabled(false);
+		this.WT4.setBounds(657, 253, 86, 20);
+		FCFS.getContentPane().add(WT4);
+		this.WT4.setColumns(10);
+		
+		this.WT5 = new JTextField();
+		WT5.setEditable(false);
+		this.WT5.setText("0");
+		this.WT5.setHorizontalAlignment(SwingConstants.CENTER);
+		this.WT5.setEnabled(false);
+		this.WT5.setBounds(657, 284, 86, 20);
+		FCFS.getContentPane().add(WT5);
+		this.WT5.setColumns(10);
+		
+		aveTAT = new JLabel("Average Turn Around Time:");
+		aveTAT.setForeground(Color.WHITE);
+		aveTAT.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		aveTAT.setBounds(406, 329, 191, 39);
+		FCFS.getContentPane().add(aveTAT);
+		
+		aveWT = new JLabel("Average Waiting Time:");
+		aveWT.setForeground(Color.WHITE);
+		aveWT.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		aveWT.setBounds(404, 364, 164, 32);
+		FCFS.getContentPane().add(aveWT);
+		
+		aveTurnAroundTime = new JTextField();
+		aveTurnAroundTime.setHorizontalAlignment(SwingConstants.CENTER);
+		aveTurnAroundTime.setBounds(630, 341, 133, 20);
+		FCFS.getContentPane().add(aveTurnAroundTime);
+		aveTurnAroundTime.setColumns(10);
+		
+		aveWaitingTime = new JTextField();
+		aveWaitingTime.setHorizontalAlignment(SwingConstants.CENTER);
+		aveWaitingTime.setBounds(630, 373, 133, 20);
+		FCFS.getContentPane().add(aveWaitingTime);
+		aveWaitingTime.setColumns(10);
+		
+		totalNumOfProcess = new JLabel("Total Number of Process:");
+		totalNumOfProcess.setForeground(Color.WHITE);
+		totalNumOfProcess.setFont(new Font("Segoe UI Semilight", Font.BOLD, 15));
+		totalNumOfProcess.setBounds(28, 33, 191, 39);
+		FCFS.getContentPane().add(totalNumOfProcess);
+		
+		totalNOP = new JTextField();
+		totalNOP.setFont(new Font("Tahoma", Font.BOLD, 15));
+		totalNOP.setEditable(false);
+		totalNOP.setText("0");
+		totalNOP.setHorizontalAlignment(SwingConstants.CENTER);
+		totalNOP.setBounds(77, 76, 86, 20);
+		FCFS.getContentPane().add(totalNOP);
+		totalNOP.setColumns(10);
+		
+		chckbx1 = new JCheckBox("");
+		chckbx1.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx1.isSelected()) {
+	              FCFS.this.AT1.setEnabled(true);
+	              FCFS.this.AT1.setText("");
+	              FCFS.this.AT1.requestFocus();
+	              FCFS.this.BT1.setEnabled(true);
+	              FCFS.this.BT1.setText("");
+	              FCFS.this.BT1.requestFocus();
+	              FCFS.this.CT1.setEnabled(true);
+	              FCFS.this.CT1.setText("");
+	              FCFS.this.CT1.requestFocus();
+	              FCFS.this.TAT1.setEnabled(true);
+	              FCFS.this.TAT1.setText("");
+	              FCFS.this.TAT1.requestFocus();
+	              FCFS.this.WT1.setEnabled(true);
+	              FCFS.this.WT1.setText("");
+	              FCFS.this.WT1.requestFocus();
+	              FCFS.this.P1.setEnabled(true);
+		          FCFS.this.P1.setText("");
+		          FCFS.this.P1.requestFocus();
+		          totalNOP.setText("1");
+	            } else {
+	            	FCFS.this.P1.setEnabled(false);
+	            	FCFS.this.P1.setText("0");
+	            	FCFS.this.AT1.setEnabled(false);
+	            	FCFS.this.AT1.setText("0");
+	            	FCFS.this.BT1.setEnabled(false);
+	            	FCFS.this.BT1.setText("0");
+	            	FCFS.this.CT1.setEnabled(false);
+	            	FCFS.this.CT1.setText("0");
+	            	FCFS.this.TAT1.setEnabled(false);
+	            	FCFS.this.TAT1.setText("0");
+	            	FCFS.this.WT1.setEnabled(false);
+	            	FCFS.this.WT1.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx1.setBounds(47, 159, 24, 23);
+		FCFS.getContentPane().add(chckbx1);
+		
+		chckbx2 = new JCheckBox("");
+		chckbx2.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx2.isSelected()) {
+	              FCFS.this.AT2.setEnabled(true);
+	              FCFS.this.AT2.setText("");
+	              FCFS.this.AT2.requestFocus();
+	              FCFS.this.BT2.setEnabled(true);
+	              FCFS.this.BT2.setText("");
+	              FCFS.this.BT2.requestFocus();
+	              FCFS.this.CT2.setEnabled(true);
+	              FCFS.this.CT2.setText("");
+	              FCFS.this.CT2.requestFocus();
+	              FCFS.this.TAT2.setEnabled(true);
+	              FCFS.this.TAT2.setText("");
+	              FCFS.this.TAT2.requestFocus();
+	              FCFS.this.WT2.setEnabled(true);
+	              FCFS.this.WT2.setText("");
+	              FCFS.this.WT2.requestFocus();
+	              FCFS.this.P2.setEnabled(true);
+		          FCFS.this.P2.setText("");
+		          FCFS.this.P2.requestFocus();
+		          totalNOP.setText("2");
+	            } else {
+	            	FCFS.this.P2.setEnabled(false);
+	            	FCFS.this.P2.setText("0");
+	            	FCFS.this.AT2.setEnabled(false);
+	            	FCFS.this.AT2.setText("0");
+	            	FCFS.this.BT2.setEnabled(false);
+	            	FCFS.this.BT2.setText("0");
+	            	FCFS.this.CT2.setEnabled(false);
+	            	FCFS.this.CT2.setText("0");
+	            	FCFS.this.TAT2.setEnabled(false);
+	            	FCFS.this.TAT2.setText("0");
+	            	FCFS.this.WT2.setEnabled(false);
+	            	FCFS.this.WT2.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx2.setBounds(47, 190, 24, 23);
+		FCFS.getContentPane().add(chckbx2);
+		
+		chckbx3 = new JCheckBox("");
+		chckbx3.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx3.isSelected()) {
+	              FCFS.this.AT3.setEnabled(true);
+	              FCFS.this.AT3.setText("");
+	              FCFS.this.AT3.requestFocus();
+	              FCFS.this.BT3.setEnabled(true);
+	              FCFS.this.BT3.setText("");
+	              FCFS.this.BT3.requestFocus();
+	              FCFS.this.CT3.setEnabled(true);
+	              FCFS.this.CT3.setText("");
+	              FCFS.this.CT3.requestFocus();
+	              FCFS.this.TAT3.setEnabled(true);
+	              FCFS.this.TAT3.setText("");
+	              FCFS.this.TAT3.requestFocus();
+	              FCFS.this.WT3.setEnabled(true);
+	              FCFS.this.WT3.setText("");
+	              FCFS.this.WT3.requestFocus();
+	              FCFS.this.P3.setEnabled(true);
+		          FCFS.this.P3.setText("");
+		          FCFS.this.P3.requestFocus();
+		          totalNOP.setText("3");
+	            } else {
+	            	FCFS.this.P3.setEnabled(false);
+	            	FCFS.this.P3.setText("0");
+	            	FCFS.this.AT3.setEnabled(false);
+	            	FCFS.this.AT3.setText("0");
+	            	FCFS.this.BT3.setEnabled(false);
+	            	FCFS.this.BT3.setText("0");
+	            	FCFS.this.CT3.setEnabled(false);
+	            	FCFS.this.CT3.setText("0");
+	            	FCFS.this.TAT3.setEnabled(false);
+	            	FCFS.this.TAT3.setText("0");
+	            	FCFS.this.WT3.setEnabled(false);
+	            	FCFS.this.WT3.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx3.setBounds(47, 221, 24, 23);
+		FCFS.getContentPane().add(chckbx3);
+		
+		chckbx4 = new JCheckBox("");
+		chckbx4.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx4.isSelected()) {
+	              FCFS.this.AT4.setEnabled(true);
+	              FCFS.this.AT4.setText("");
+	              FCFS.this.AT4.requestFocus();
+	              FCFS.this.BT4.setEnabled(true);
+	              FCFS.this.BT4.setText("");
+	              FCFS.this.BT4.requestFocus();
+	              FCFS.this.CT4.setEnabled(true);
+	              FCFS.this.CT4.setText("");
+	              FCFS.this.CT4.requestFocus();
+	              FCFS.this.TAT4.setEnabled(true);
+	              FCFS.this.TAT4.setText("");
+	              FCFS.this.TAT4.requestFocus();
+	              FCFS.this.WT4.setEnabled(true);
+	              FCFS.this.WT4.setText("");
+	              FCFS.this.WT4.requestFocus();
+	              FCFS.this.P4.setEnabled(true);
+		          FCFS.this.P4.setText("");
+		          FCFS.this.P4.requestFocus();
+		          totalNOP.setText("4");
+	            } else {
+	            	FCFS.this.P4.setEnabled(false);
+	            	FCFS.this.P4.setText("0");
+	            	FCFS.this.AT4.setEnabled(false);
+	            	FCFS.this.AT4.setText("0");
+	            	FCFS.this.BT4.setEnabled(false);
+	            	FCFS.this.BT4.setText("0");
+	            	FCFS.this.CT4.setEnabled(false);
+	            	FCFS.this.CT4.setText("0");
+	            	FCFS.this.TAT4.setEnabled(false);
+	            	FCFS.this.TAT4.setText("0");
+	            	FCFS.this.WT4.setEnabled(false);
+	            	FCFS.this.WT4.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx4.setBounds(47, 252, 24, 23);
+		FCFS.getContentPane().add(chckbx4);
+		
+		chckbx5 = new JCheckBox("");
+		chckbx5.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	            if (chckbx5.isSelected()) {
+	              FCFS.this.AT5.setEnabled(true);
+	              FCFS.this.AT5.setText("");
+	              FCFS.this.AT5.requestFocus();
+	              FCFS.this.BT5.setEnabled(true);
+	              FCFS.this.BT5.setText("");
+	              FCFS.this.BT5.requestFocus();
+	              FCFS.this.CT5.setEnabled(true);
+	              FCFS.this.CT5.setText("");
+	              FCFS.this.CT5.requestFocus();
+	              FCFS.this.TAT5.setEnabled(true);
+	              FCFS.this.TAT5.setText("");
+	              FCFS.this.TAT5.requestFocus();
+	              FCFS.this.WT5.setEnabled(true);
+	              FCFS.this.WT5.setText("");
+	              FCFS.this.WT5.requestFocus();
+	              FCFS.this.P5.setEnabled(true);
+		          FCFS.this.P5.setText("");
+		          FCFS.this.P5.requestFocus();
+		          totalNOP.setText("5");
+	            } else {
+	            	FCFS.this.P5.setEnabled(false);
+	            	FCFS.this.P5.setText("0");
+	            	FCFS.this.AT5.setEnabled(false);
+	            	FCFS.this.AT5.setText("0");
+	            	FCFS.this.BT5.setEnabled(false);
+	            	FCFS.this.BT5.setText("0");
+	            	FCFS.this.CT5.setEnabled(false);
+	            	FCFS.this.CT5.setText("0");
+	            	FCFS.this.TAT5.setEnabled(false);
+	            	FCFS.this.TAT5.setText("0");
+	            	FCFS.this.WT5.setEnabled(false);
+	            	FCFS.this.WT5.setText("0");
+	            	totalNOP.setText("0");
+	            } 
+	          }
+	        });
+		chckbx5.setBounds(47, 283, 24, 23);
+		FCFS.getContentPane().add(chckbx5);
+		
+	}
+}
